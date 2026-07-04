@@ -1,0 +1,11 @@
+import  express from 'express';
+import { createresume, deleteresume, getpublicresumebyid, getresumebyid, updateresume } from '../controller/resumecontroller.js';
+import protect from '../middleware/authmiddleware.js';
+import upload from '../config/multer.js';
+let resumerouter=express.Router();
+resumerouter.post('/create',protect,createresume);
+resumerouter.put('/update',upload.single('image'),protect,updateresume);
+resumerouter.delete('/delete/:resumeid',protect,deleteresume);
+resumerouter.get('/get/:resumeid',protect,getresumebyid);
+resumerouter.get('/public/:resumeid',getpublicresumebyid);
+export default resumerouter;
