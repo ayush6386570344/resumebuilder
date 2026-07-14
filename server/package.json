@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/genai": "^2.11.0",
     "@imagekit/nodejs": "^7.7.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
@@ -20,7 +21,11 @@
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.7.0",
     "multer": "^2.2.0",
-    "openai": "^6.44.0"
+    "openai": "^6.44.0",
+    "pdf-parse": "^1.1.4",
+    "pdfjs-dist": "^6.1.200",
+    "pdfreader": "^3.0.8",
+    "react-countup": "^6.5.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"

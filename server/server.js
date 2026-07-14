@@ -7,6 +7,7 @@ import connectdb from "./config/db.js";
 import userRouter from "./routes/userroutes.js";
 import resumerouter from "./routes/resumeroutes.js";
 import airouter from "./routes/airouter.js";
+// import Invokegeminiai from "./config/aiservices.js";
 const app = express();
 const server=http.createServer(app);
 const dbpath="mongodb+srv://ayushsinghkh2005:ayush%401973@cluster0.qbnlqip.mongodb.net/userdataofresumebuilder?appName=Cluster0";

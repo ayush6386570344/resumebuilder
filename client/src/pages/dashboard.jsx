@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import {LoaderCircleIcon, XIcon} from "lucide-react";
+import {LoaderCircleIcon, XIcon,ChartColumn} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
   PlusIcon,
@@ -16,15 +16,17 @@ import pdftoText from 'react-pdftotext'
 
 const Dashboard = () => {
   const {user,token}=useSelector(state=>state.auth);
-
   const [allresume, setallresume] = useState([]);
   const [showcreateresume,setshowcreateresume]=useState(false);
   const [showuploadresume,setshowuploadresume]=useState(false);
+  //
+  // const [resumeanalysis,setresumeanalysis]=useState(false);
+  //
   const [title,settitle]=useState('');
   const [resume,setresume]=useState(null);
   const [editresumeid,seteditresumeid]=useState(null);
   const [isloading,setisloading]=useState(false);
-
+  const [jobDescription,setjobDescription]=useState(null);
   const edittitle=async(e)=>{
     console.log("fefe");
     try{
@@ -40,7 +42,6 @@ const Dashboard = () => {
     catch(error){
          toast.error(error?.response?.data?.message || error.message)
     }
-
   }
   const loadallresumes=async()=>{
     try{
@@ -97,6 +98,27 @@ const Dashboard = () => {
     setisloading(false);
   }
 
+  const analyzeResume = async(e) => {
+
+    e.preventDefault();
+
+    if (!resume) {
+        toast.error("Please upload a resume");
+        return;
+    }
+
+    if (!jobDescription) {
+        toast.error("Please upload a job description");
+        return;
+    }
+    const formdata=new FormData();
+    formdata.append("resume",resume);
+    formdata.append("jobDescription",jobDescription);
+    const result=await api.post('/api/ai/analysis',formdata,{headers:{Authorization:token}});
+    navigate(`/app/resume-analysis/${result.data.analysisid}`);
+    
+
+}
 
   const colors = [
     "border-red-500",
@@ -122,7 +144,6 @@ const Dashboard = () => {
     catch(err){
       toast.error(err.response?.data?.message  || error.message)
     }
-
   }
 
   return (
@@ -168,7 +189,6 @@ const Dashboard = () => {
               Create Resume
             </p>
           </button>
-
           {/* Upload Resume */}
           <button 
           onClick={()=>setshowuploadresume(true)}
@@ -204,6 +224,41 @@ const Dashboard = () => {
               Upload Existing
             </p>
           </button>
+          <button onClick={()=>navigate("/app/resume-analysis")}
+            className="
+              w-56 h-56
+              bg-zinc-900
+              rounded-2xl
+              border border-zinc-700
+              flex flex-col items-center justify-center
+              gap-4
+              shadow-xl
+              hover:-translate-y-2
+              hover:shadow-indigo-500/30
+              hover:shadow-2xl
+              transition-all duration-300
+              group
+            "
+          >
+            <ChartColumn
+              className="
+                w-14 h-14 p-3
+                rounded-full
+                bg-gradient-to-br
+                from-indigo-400
+                to-indigo-600
+                text-white
+                group-hover:scale-110
+                transition-all duration-300
+              "
+            />
+
+            <p className="text-lg font-semibold">
+              Interview Preparation
+            </p>
+          </button>
+
+          
         </div>
 
         {/* it gives us resume */}

@@ -7,7 +7,6 @@ import Personalinfo from '../component/personalinfo'
 import Resumepreview from '../component/resumepreview'
 import Templateselector from '../component/templateselector'
 import Colourpicker from '../component/colourpicker'
-// import Professionalsummary from '../component/professionalsummary'
 import Professionalsummary from '../component/professionalsummary'
 import Experienceform from '../component/experienceform'
 import Education from '../component/education'
@@ -18,6 +17,7 @@ import api from '../config/api'
 import toast from 'react-hot-toast'
 
 const Resumebuilder = () => {
+  console.log("hello j i am in resumebuilder")
   const {token}=useSelector(state=>state.auth);
   const {resumeid}=useParams()
   const [resumedata,setresumedata]=useState({
@@ -92,7 +92,7 @@ const Resumebuilder = () => {
     console.error("error saving resumes:", err);
     toast.error(err?.response?.data?.message || err.message);
   }
-};
+}
   const handleshare=async()=>{
     const frontendurl=window.location.href.split('/app')[0];
     const resumeurl=frontendurl+'/view/'+resumeid;

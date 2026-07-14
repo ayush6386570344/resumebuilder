@@ -1,9 +1,11 @@
 import express from "express";
+import upload from "../config/multer.js";
 import protect from "../middleware/authmiddleware.js";
-import { enhancejobdescription, enhanceprofessionalsummary ,uploadexistingresume} from "../controller/aicontroller.js";
+import { enhancejobdescription, enhanceprofessionalsummary ,uploadexistingresume,analysis} from "../controller/aicontroller.js";
 import { updateresume } from "../controller/resumecontroller.js";
 const airouter=express.Router();
 airouter.post('/enhance-pro-sum',protect,enhanceprofessionalsummary);
 airouter.post('/enhance-job-desc',protect,enhancejobdescription);
+airouter.post('/analysis',protect,upload.single('resume'),analysis);
 airouter.post('/upload-resume',protect,uploadexistingresume);
 export default airouter;
