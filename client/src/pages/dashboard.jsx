@@ -221,7 +221,7 @@ const Dashboard = () => {
             />
 
             <p className="text-lg font-semibold">
-              Upload Existing
+             Upload Existing HireSense AI Resume
             </p>
           </button>
           <button onClick={()=>navigate("/app/resume-analysis")}
