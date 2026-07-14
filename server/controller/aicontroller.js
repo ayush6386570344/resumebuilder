@@ -1,6 +1,5 @@
 import Resume from "../models/resume.js";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
-import mammoth from "mammoth";
 import Analysis from "../models/anlysisstore.js";
 import fs from "fs";
 import pdfParse from "pdf-parse";
