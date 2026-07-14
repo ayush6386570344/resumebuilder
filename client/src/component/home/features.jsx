@@ -1,10 +1,63 @@
 import React from "react";
-import { Zap, Sparkles, FileText, Share2 } from "lucide-react";
+import { Sparkles, Share2 } from "lucide-react";
 import Title from "./title";
+import {
+  Brain,
+  Target,
+  BadgeCheck,
+  FileText,
+  MessageSquare,
+  Download,
+  Zap,
+} from "lucide-react";
 
 const Features = () => {
   const [isHover, setIsHover] = React.useState(false);
 
+const features = [
+  {
+    icon: Brain,
+    title: "AI Resume Analysis",
+    description:
+      "Upload your resume and receive AI-powered feedback, ATS score, strengths and improvement suggestions.",
+    color: "indigo",
+  },
+  {
+    icon: Target,
+    title: "Job Match Analysis",
+    description:
+      "Compare your resume with any Job Description and identify missing skills instantly.",
+    color: "blue",
+  },
+  {
+    icon: BadgeCheck,
+    title: "ATS Optimization",
+    description:
+      "Improve ATS compatibility using AI-generated recommendations.",
+    color: "green",
+  },
+  {
+    icon: FileText,
+    title: "Resume Builder",
+    description:
+      "Create professional resumes using modern templates and real-time preview.",
+    color: "violet",
+  },
+  {
+    icon: MessageSquare,
+    title: "Interview Preparation",
+    description:
+      "Practice Technical, HR and Behavioral interview questions tailored to your role.",
+    color: "orange",
+  },
+  {
+    icon: Download,
+    title: "One Click Export",
+    description:
+      "Download and share your resume as a professional PDF instantly.",
+    color: "pink",
+  },
+];
   return (
     <>
       <div className="bg-black">
@@ -14,8 +67,8 @@ const Features = () => {
         </div>
 
         <Title
-          title="Build your resume"
-          description="Create a professional ATS-friendly resume in minutes using AI-powered tools, modern templates, and seamless customization."
+          title="Everything You Need to Get Hired"
+          description="Build ATS-friendly resumes, compare them with job descriptions, discover missing skills, improve your resume score and prepare for Technical, HR & Behavioral interviews using AI."
         />
 
         <div className="flex flex-col md:flex-row items-center justify-center">
@@ -33,64 +86,46 @@ const Features = () => {
             <h2 className="text-3xl font-bold text-white mb-8">
   Features
 </h2>
-            {/* Feature 1 */}
-            <div className="flex items-center justify-center gap-6 max-w-md group cursor-pointer">
-              <div
-                className={`p-6 group-hover:bg-violet-100 border border-transparent group-hover:border-violet-300 flex gap-4 rounded-xl transition-colors ${
-                  !isHover ? "border-violet-300 bg-violet-100" : ""
-                }`}
-              >
-                <Sparkles className="size-6 text-violet-600" />
+            
+<div className="grid md:grid-cols-2 gap-6">
 
-                <div className="space-y-2">
-                  <h3 className="text-base font-semibold text-slate-700">
-                    AI Resume Optimization
-                  </h3>
+  {features.map((feature, index) => {
 
-                  <p className="text-sm text-slate-600 max-w-xs">
-                    Improve your resume with Google Gemini AI by generating
-                    professional, ATS-friendly content and enhancing resume
-                    quality instantly.
-                  </p>
-                </div>
-              </div>
-            </div>
+    const Icon = feature.icon;
 
-            {/* Feature 2 */}
-            <div className="flex items-center justify-center gap-6 max-w-md group cursor-pointer">
-              <div className="p-6 group-hover:bg-green-100 border border-transparent group-hover:border-green-300 flex gap-4 rounded-xl transition-colors">
-                <FileText className="size-6 text-green-600" />
+    return (
 
-                <div className="space-y-2">
-                  <h3 className="text-base font-semibold text-slate-700">
-                    Multiple Resume Templates
-                  </h3>
+      <div
+        key={index}
+        className="group rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 hover:border-indigo-500 transition-all duration-300 hover:-translate-y-1"
+      >
 
-                  <p className="text-sm text-slate-600 max-w-xs">
-                    Select from professionally designed resume templates with
-                    real-time preview, customization, and instant PDF download.
-                  </p>
-                </div>
-              </div>
-            </div>
+        <div className="w-12 h-12 rounded-xl bg-indigo-600/20 flex items-center justify-center">
 
-            {/* Feature 3 */}
-            <div className="flex items-center justify-center gap-6 max-w-md group cursor-pointer">
-              <div className="p-6 group-hover:bg-orange-100 border border-transparent group-hover:border-orange-300 flex gap-4 rounded-xl transition-colors">
-                <Share2 className="size-6 text-orange-600" />
+          <Icon className="text-indigo-400" size={24} />
 
-                <div className="space-y-2">
-                  <h3 className="text-base font-semibold text-slate-700">
-                    Cloud Storage & Sharing
-                  </h3>
+        </div>
 
-                  <p className="text-sm text-slate-600 max-w-xs">
-                    Save resumes securely, upload profile images, and share your
-                    resume instantly using a unique public link from anywhere.
-                  </p>
-                </div>
-              </div>
-            </div>
+        <h3 className="text-xl font-semibold text-white mt-5">
+
+          {feature.title}
+
+        </h3>
+
+        <p className="text-gray-400 mt-3 leading-7">
+
+          {feature.description}
+
+        </p>
+
+      </div>
+
+    );
+  })}
+
+</div>
+           
+            
           </div>
         </div>
 
