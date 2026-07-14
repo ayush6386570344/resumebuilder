@@ -4,9 +4,46 @@ import Analysis from "../models/anlysisstore.js";
 import fs from "fs";
 import pdfParse from "pdf-parse";
 import genai  from "../config/aiservices.js";
+import { openrouter } from "../config/aiservices.js";
+import gemini from "../config/aiservices.js"
 import ai from "../config/ai.js";
 
+export async function generateAI(prompt) {
+    try {
+        const response = await gemini.models.generateContent({
+            model: "gemini-3.5-flash",
+            contents: prompt,
+        });
 
+        return response.text;
+    } catch (err) {
+
+        // Gemini Busy?
+        if (
+            err.message.includes("503") ||
+            err.message.includes("UNAVAILABLE")
+        ) {
+
+            console.log("Gemini busy. Switching to OpenRouter...");
+
+            const completion =
+                await openrouter.chat.completions.create({
+                    model: "openrouter/free",
+
+                    messages: [
+                        {
+                            role: "user",
+                            content: prompt,
+                        },
+                    ],
+                });
+
+            return completion.choices[0].message.content;
+        }
+
+        throw err;
+    }
+}
 // controller for enhancing professional summary
 export const enhanceprofessionalsummary=async(req,res)=>{
     try{
@@ -26,9 +63,9 @@ export const enhanceprofessionalsummary=async(req,res)=>{
                 },
             ],
         });
-        const enhancedcontent=response.choices[0].message.content;
-        console.log("i am in professional summary",enhancedcontent);
-        return res.status(200).json({enhancedcontent});
+      console.dir(completion, { depth: null });
+
+return completion.choices[0].message.content;
 
     }
     catch(err){
@@ -334,17 +371,20 @@ Rules:
 14. The JSON must exactly match the schema above.
 Return ONLY JSON.
 `;
-const result = await genai.models.generateContent({
-        model: "gemini-3.5-flash",
-        contents: prompt,
-    });
-      const text = result.text;
-      const cleanText = text
+// const result = await genai.models.generateContent({
+//         model: "gemini-3.5-flash",
+//         contents: prompt,
+//     });
+const text = await generateAI(prompt);
+
+const cleanText = text
   .replace(/```json/g, "")
   .replace(/```/g, "")
   .trim();
-  console.log("Gemini Response:");
+
+console.log("AI Response:");
 console.log(cleanText);
+
 const analysis = JSON.parse(cleanText);
 // console.log(analysis);
 
