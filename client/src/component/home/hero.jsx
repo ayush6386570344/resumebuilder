@@ -206,8 +206,7 @@ const Hero = () => {
 
           <img
 
-            src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/hero-section-showcase-4.png"
-
+           src="/image.png"
             alt="AI Resume Builder"
 
             className="relative max-w-lg w-full drop-shadow-2xl"
