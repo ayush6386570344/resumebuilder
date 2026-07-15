@@ -13,9 +13,9 @@ const Professionalsummary = ({data,onChange,setresumedata}) => {
       setisgenerating(true);
       console.log("generating professional summary");
       const prompt=`enhance my professional summary "${data}"`;
-      const response=await api.post(`/api/ai/enhance-pro-sum`,{usercontent:prompt},{headers:{Authorization:token}});
-      console.log( "i am in professional summay",response);
-      setresumedata(prev=>({...prev,professional_summary:response.data.enhancedcontent}));
+      const {data:response}=await api.post(`/api/ai/enhance-pro-sum`,{usercontent:prompt},{headers:{Authorization:token}});
+      console.log( "i am in professional summay.jsx",response);
+      setresumedata(prev=>({...prev,professional_summary:response.enhancedcontent}));
     }
     catch(error){
       console.log("error in enhancing professional summary",error);
